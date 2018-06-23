@@ -2,5 +2,6 @@ scratch*
 thin*
 fat*
 FFmpeg.framework
+FFmpeg.framework.zip
 FFmpeg-*
 .DS_Store
