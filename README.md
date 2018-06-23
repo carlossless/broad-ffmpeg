@@ -1,6 +1,6 @@
 # FFmpeg iOS build script
 
-[![Build Status](https://travis-ci.org/kewlbear/FFmpeg-iOS-build-script.svg?branch=master)](https://travis-ci.org/kewlbear/FFmpeg-iOS-build-script)
+[![Build Status](https://travis-ci.org/carlossless/broad-ffmpeg.svg?branch=master)](https://travis-ci.org/carlossless/broad-ffmpeg)
 
 This is a shell script to build FFmpeg libraries for iOS and tvOS apps.
 

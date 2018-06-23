@@ -1,20 +1,20 @@
 language: objective-c
+osx_image: xcode9
 
-script: ./build-ffmpeg.sh 2>.stderr
-
-env:
-    global:
-        - secure: "POoeB0wNaIPKORu8solBfDwSbgk6bsxSJpVWqVawledYiZHnYLXUDzDawoKOXzjJ1oQQiluZWCmv+RXDA9gthTNrH08fuUEvsUHBr7sgHqaOskEbKN/s2962FLy4FRZdQyZFkrrzNcqnc3xaxgF5ZyjRewtB0JioaOSAPEH8ALc="
-        - TARBALL=ffmpeg-ios-$TRAVIS_BRANCH.tar.bz2
-
-after_success:
-    - tar cjf $TARBALL FFmpeg-iOS .stderr scratch/*/config.log ffmpeg*/LICENSE.md ffmpeg*/COPYING.* README.md
-    - openssl aes-256-cbc -k "$secret" -in .sf -d -a -out id_sf
-    - chmod 600 id_sf
-    - scp -i id_sf -o 'StrictHostKeyChecking no' $TARBALL koolbear@frs.sourceforge.net:/home/frs/project/ffmpeg-ios
+script: 
+  - ./build-ffmpeg-iOS-framework.sh 2>.stderr
+  - mkdir -p Carthage/Build/iOS
+  - cp -r FFmpeg.framework Carthage/Build/iOS/FFmpeg.framework
+  - zip -r Carthage.framework.zip Carthage
 
 after_failure: cat .stderr
 
-osx_image: xcode8.3
-
-sudo: false
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: D+IbPVHI1QFP5XebkaXf6Qiioce6VZQ8dmerdnUf59WL0A2gV5kI1O6Mps3JAx7Few0FbwhACtoU+bDEzgN1Pj7poZODv85bie8toCUC0u4iF1mft/NAxJrIBpdNbBfDpQDBiP6zNEtKuS3wTyyoFT+gyJlDWictWI1mYojkc9Bf8UKPGpgJMi7ZDUSWjjvvhIwdAzKhfflCTPaSm276JugA99y5pxoKP2UhrsPRX74R6t1D6O4Y+BGp7fKlGIxa7alViw3HqdTQIJsqbyrIisLpjhFb5xfR1dyAngruJ7IoGAsqT0Ac5Hyu1ogHX8PBQjVt4Tuj+sYSp9f/mkzUWgjYoTTeGhITRSjmU3WkG/EwcpM5kJYN3Kp0W3nPS/N+LE6h6B4x/TkrQqXvP6OJw2AQttK92k/SPrBRWWw7BGWR865VdABDY00cxgwtBjTf3OHggo4PHvtDPcjUQmJx1BYR4bckXBLoqSfY1ss6QX+dnGOxABaAR1wdYVRCsCXO3uO644FSzmt/yqrgRt8Y0Mz3uLfuZw3Lo8kUtSNO5MS+D5qwBI55fnipCALp4FIYXjpEobn0HrrzJmkQAtNS6bjpFC9VjulQUKUPg+2s7YT8oaWQ/Bm+ZbV67pEN3Wc0SFiTVu7hGd8a8H7+JadGse6Ajx6nqj9qnudoH+UP1L8=
+  file: Carthage.framework.zip
+  on:
+    tags: true
+    repo: carlossless/broad-ffmpeg

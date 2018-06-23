@@ -104,6 +104,7 @@ function CreateModulemapAndUmbrellaHeader() {
 #include "avutil.h"
 #include "swscale.h"
 #include "swresample.h"
+#include "imgutils.h"
 double FFmpegVersionNumber = $FFMPEG_VERSION;
 EOF
 
