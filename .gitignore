@@ -3,5 +3,6 @@ thin*
 fat*
 FFmpeg.framework
 FFmpeg.framework.zip
+Carthage.framework.zip
 FFmpeg-*
 .DS_Store
