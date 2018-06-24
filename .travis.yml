@@ -5,7 +5,7 @@ script:
   - ./build-ffmpeg-iOS-framework.sh 2>.stderr
   - mkdir -p Carthage/Build/iOS
   - mv Carthage/Build/iOS FFmpeg.framework
-  - zip Carthage.framework.zip Carthage
+  - zip -r Carthage.framework.zip Carthage
 
 after_failure: cat .stderr
 
