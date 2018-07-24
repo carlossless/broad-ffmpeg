@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # directories
-FF_VERSION="3.4.2"
+FF_VERSION="3.4.4"
 if [[ $FFMPEG_VERSION != "" ]]; then
   FF_VERSION=$FFMPEG_VERSION
 fi
@@ -38,7 +38,7 @@ ARCHS="arm64 armv7 x86_64 i386"
 COMPILE="y"
 LIPO="y"
 
-DEPLOYMENT_TARGET="6.0"
+DEPLOYMENT_TARGET="8.0"
 
 if [ "$*" ]
 then
@@ -84,6 +84,11 @@ then
 		echo 'FFmpeg source not found. Trying to download...'
 		curl http://www.ffmpeg.org/releases/$SOURCE.tar.bz2 | tar xj \
 			|| exit 1
+		if [[ $FF_VERSION = 3.4* ]]
+		then
+			echo 'Patching FFMPEG 3.4 to use securetransport for tls'
+			patch -p0 < patches/3-4-securetransport.patch || exit 1
+		fi
 	fi
 
 	CWD=`pwd`
