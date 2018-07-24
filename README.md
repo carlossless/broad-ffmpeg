@@ -6,7 +6,7 @@ This is a shell script to build FFmpeg libraries for iOS and tvOS apps.
 
 Tested with:
 
-* FFmpeg 3.4
+* FFmpeg 3.4.4
 * Xcode 9
 
 ## Requirements

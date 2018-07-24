@@ -4,7 +4,7 @@
 SCRATCH=`pwd`/"scratch"
 ARCHS="arm64 armv7 i386 x86_64"
 
-FFMPEG_VERSION="3.4"
+FFMPEG_VERSION="3.4.4"
 export FFMPEG_VERSION
 HEADER_SUFFIX=".h"
 CURRENT_FOLDER=`pwd`
@@ -93,6 +93,8 @@ function CopyInttype() {
 
 function CreateModulemapAndUmbrellaHeader() {
   #create ffmpeg.h
+  [[ $FFMPEG_VERSION =~ ^([0-9]+.[0-9]+).*$ ]]
+  SHORT_FFMPEG_VERSION=${BASH_REMATCH[1]}
   cat > $OUTPUT_UMBRELLA_HEADER <<EOF
 #import <Foundation/Foundation.h>
 #import <VideoToolbox/VideoToolbox.h>
@@ -105,7 +107,7 @@ function CreateModulemapAndUmbrellaHeader() {
 #include "swscale.h"
 #include "swresample.h"
 #include "imgutils.h"
-double FFmpegVersionNumber = $FFMPEG_VERSION;
+double FFmpegVersionNumber = ${SHORT_FFMPEG_VERSION};
 EOF
 
   cat > $OUTPUT_MODULES_FILE <<EOF
