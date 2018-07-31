@@ -94,7 +94,7 @@ function CopyInttype() {
 function CreateModulemapAndUmbrellaHeader() {
   #create ffmpeg.h
   [[ $FFMPEG_VERSION =~ ^([0-9]+.[0-9]+).*$ ]]
-  SHORT_FFMPEG_VERSION = ${BASH_REMATCH[1]}
+  SHORT_FFMPEG_VERSION=${BASH_REMATCH[1]}
   cat > $OUTPUT_UMBRELLA_HEADER <<EOF
 #import <Foundation/Foundation.h>
 #import <VideoToolbox/VideoToolbox.h>

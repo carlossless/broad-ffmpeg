@@ -14,8 +14,8 @@
  enabled schannel &&
      check_func_headers "windows.h security.h" InitializeSecurityContext -DSECURITY_WIN32 -lsecur32 &&
      check_cpp_condition winerror.h "defined(SEC_I_CONTEXT_EXPIRED)" &&
---- ffmpeg-3.4/libavformat/tls_securetransport.c	2017-10-15 17:59:38.000000000 +0200
-+++ ffmpeg-3.4/libavformat/tls_securetransport.c	2018-07-26 15:00:49.000000000 +0200
+--- ffmpeg-3.4.4/libavformat/tls_securetransport.c	2017-10-15 17:59:38.000000000 +0200
++++ ffmpeg-3.4.4/libavformat/tls_securetransport.c	2018-07-26 15:00:49.000000000 +0200
 @@ -20,7 +20,6 @@
  
  #include <errno.h>
